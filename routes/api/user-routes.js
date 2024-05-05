@@ -28,11 +28,14 @@ router.post('/User', async (req, res) => {
   const {username,password} = req.body
   try {
     // create a new User
-      await User.create({
-        username:username,
-        password:password
-      })
-      res.json({UserName:username, Password:password})
+    // log('login:',username,password)
+    const newUser= await User.create({
+      username:username,
+      password:password
+    })
+    req.session.userID=newUser.id
+      // res.json({UserName:username, Password:password})
+      res.redirect('/')
   } catch (error) {
     log(error)
     res.json({err:error})

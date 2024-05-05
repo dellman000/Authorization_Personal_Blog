@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
-app.use(routes);
+
 
 
 
@@ -27,6 +27,8 @@ app.use(session({
   // }),
   //cookie: { secure: true }
 }))
+
+app.use(routes);
 // sync sequelize models to the database, then turn on the server
 
 client.sync({force: false})

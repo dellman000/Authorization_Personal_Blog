@@ -19,13 +19,23 @@ Card.init(
     text:{
       type: DataTypes.STRING,
       allowNull:false
-    }
+    },
+    user_id:{
+      type: DataTypes.INTEGER,
+    },
+    // , 
+    // createdDate:{
+    //   type: DataTypes.DATE,
+    //   allowNull:false
+    // }
   },
   {
     sequelize: client,
-    timestamps: false,
+    timestamps: true,
+    updatedAt:'updatedDate',
     freezeTableName: true,
     underscored: true,
+    createdAt:'createdDate',
     modelName: 'card',
   }
 );
