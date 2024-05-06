@@ -29,7 +29,7 @@ CardCommentPivot.init(
     freezeTableName: true,
     underscored: true,
     createdAt:'createdDate',
-    modelName: 'card',
+    modelName: 'cardcommentpivot',
   }
 );
 

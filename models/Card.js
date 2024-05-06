@@ -35,8 +35,8 @@ Card.init(
     updatedAt:'updatedDate',
     freezeTableName: true,
     underscored: true,
-    createdAt:'createdDate',
-    modelName: 'card',
+    createdAt:'createdDate'
+    //,modelName: 'card',
   }
 );
 

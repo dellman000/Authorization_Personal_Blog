@@ -6,10 +6,10 @@ const CardCommentPivot=require('./CardCommentPivot')
 User.hasMany(Card)
 Card.belongsTo(User)
 
-Card.belongsToMany(Comment,{through:'CardCommentPivot'})
-Comment.belongsToMany(Card,{through:'CardCommentPivot'})
+Card.belongsToMany(Comment,{through:'cardcommentpivot'})
+Comment.belongsToMany(Card,{through:'cardcommentpivot'})
 
 
 module.exports = {
-  Card,User,Comment,CardCommentPivot
+  Card,User,Comment//,CardCommentPivot
 };

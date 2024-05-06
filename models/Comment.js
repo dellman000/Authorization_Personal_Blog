@@ -33,7 +33,7 @@ Comment.init(
     freezeTableName: true,
     underscored: true,
     createdAt:'createdDate',
-    modelName: 'card',
+    modelName: 'comment',
   }
 );
 
