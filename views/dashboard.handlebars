@@ -21,19 +21,28 @@
 </form>
 </div>
 
+<div id="cardList">
 
-{{#each cardList }}
-<div class="card" >
-  <div class="card-body">
-    <h5 class="card-title">{{title}}</h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-    <p class="card-text"> {{text}}</p>
-    <a href="#" class="card-link">Card link</a>
 
-  </div>
+    {{#each cardList }}
+    <div class="card" >
+    <div class="card-body">
+        <h5 class="card-title">{{title}}</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+        <p class="card-text"> {{text}}</p>
+     
+        <button type="button" class="btn btn-danger" data-id={{id}}>Delete post</button>
+        <a href="#" class="card-link" data-id={{id}}>edit post</a>
+
+        <form style="display: none;" id="CardEdit{{id}}"  action="/api/Card/edit/{{id}}" method="POST">
+            <input type="text" name="title" value="{{title}}" class="form-control"  >
+            <textarea  name="text" class="form-control" rows="3"  >{{text}}</textarea>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    </div>
+    {{/each}}
 </div>
-{{/each}}
-
 <script>
 function myFunction() {
   var x = document.getElementById("clocking");
@@ -43,4 +52,31 @@ function myFunction() {
      x.style.display = "none";
   }
 }
+function cardList(){
+   let cardList= document.getElementById('cardList')
+   cardList.addEventListener('click',async (e) => {
+                const cardID=e.target.dataset.id
+                const currentform=document.getElementById('CardEdit'+cardID)
+            if(e.target.classList=='card-link'){
+                console.log(e.target.dataset.id)
+                console.log(currentform)
+                currentform.style.display='block'
+            }
+            if(e.target.classList=='btn btn-danger'){
+                console.log("remove")
+                 await fetch('/api/Card/'+cardID, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                   
+                })
+                 window.location.reload()
+            }
+
+
+    })
+    
+}
+cardList()
 </script>

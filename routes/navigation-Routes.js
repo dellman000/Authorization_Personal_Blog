@@ -7,13 +7,13 @@ router.get('/', async (req, res) => {
 
 const allcards=await Card.findAll()
 const currentUser=await User.findByPk(req.session.userID)
-const allCards=await Card.findAll()
+const allCards=await Card.findAll({include: User})
 // log(allCards[0])
 const databaseCards=[]
 allCards.forEach(element => {
   databaseCards.push(element.dataValues)
 });
-// log(databaseCards)
+log(databaseCards)
 if(req.session.userID||currentUser){
   // log(currentUser)
   res.render('homepage',{userID:currentUser.id,username:currentUser.username,AllCards:databaseCards})
@@ -60,6 +60,14 @@ res.render('homepage',{AllCards:databaseCards})
   router.get('/SignUp', (req, res) => {
     // Register
   res.render("signin")
+  });
+
+  router.get('/logout', (req, res) => {
+    // Register
+    req.session.destroy(()=>{
+      res.redirect("/")
+    })
+  
   });
 
 
