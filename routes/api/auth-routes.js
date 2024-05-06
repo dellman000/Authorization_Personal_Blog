@@ -9,9 +9,14 @@ router.post('/signin', async (req, res) => {
         where:{username:username,
         }
     })
-    // const isvalid=User.validatePassword(CurrentUser.password)
-    const isvalid= bcrypt.compareSync(password, CurrentUser.password)  
-    if(!isvalid||!CurrentUser){
+    let isvalid
+    try{
+         isvalid= bcrypt.compareSync(password, CurrentUser.password)  
+
+    }catch(err){
+        res.render('signin',{message:"Incorrect username or password"})
+    }
+    if(!CurrentUser){
         res.render('signin',{message:"Incorrect username or password"})
     }
     else{
