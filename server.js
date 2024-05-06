@@ -8,7 +8,7 @@ require('dotenv').config();
 const client = require('./config/connection')
 const app = express();
 const PORT = process.env.PORT || 3001;
-
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -22,16 +22,16 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  // store: new SequelizeStore({
-  //     db: client,
-  // }),
+  store: new SequelizeStore({
+      db: client,
+  }),
   //cookie: { secure: true }
 }))
 
 app.use(routes);
 // sync sequelize models to the database, then turn on the server
 
-client.sync({force: false})
+client.sync({force: true})
 .then(()=>{ app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
   });
