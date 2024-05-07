@@ -25,7 +25,7 @@ app.use(session({
   store: new SequelizeStore({
       db: client,
   }),
-  //cookie: { secure: true }
+  cookie: { expires: 60000 }
 }))
 
 app.use(routes);
